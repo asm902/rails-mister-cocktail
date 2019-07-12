@@ -1,0 +1,26 @@
+
+<div class="single-cocktail-card">
+  <h1><%= @cocktail.name %></h1>
+  <br>
+  <h3>Ingredients for this cocktail are:</h3>
+  <ul>
+    <% @cocktail.doses.each do |dose| %>
+      <li>
+        <h5><%= dose.description %> <%= dose.ingredient.name %></h5>
+        <p><%= link_to "Delete this dose...", dose_path(dose), method: :delete %></p>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<h3>Add an ingredient?</h3>
+<%= simple_form_for [@cocktail, Dose.new] do |f| %>
+  <%= f.input :description %>
+  <%= f.association :ingredient %>
+  <!-- redundent -->
+  <!-- f.input :ingredient, collection: Ingredient.all -->
+  <%= f.submit %>
+<% end %>
+
+<p><%= link_to "Previous cocktail", cocktail_path(@cocktail.id - 1) %></p>
+<p><%= link_to "Next cocktail", cocktail_path(@cocktail.id + 1) %></p>
