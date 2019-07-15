@@ -1,0 +1,17 @@
+<h3>Add an ingredient?</h3>
+<%= simple_form_for [@cocktail, Dose.new] do |f| %>
+  <div class=“errors-container”>
+    <% if @dose.errors.any? %>
+      <ul>
+        <% @dose.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <%= f.input :description %>
+  <%= f.association :ingredient %>
+  <!-- redundent -->
+  <!-- f.input :ingredient, collection: Ingredient.all -->
+  <%= f.submit %>
+<% end %>
